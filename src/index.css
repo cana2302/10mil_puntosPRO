@@ -60,11 +60,5 @@ body {
 }
 
 .pantalla img {
-  width: 60px;
-}
-
-.encabezado {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  width: 100px;
 }

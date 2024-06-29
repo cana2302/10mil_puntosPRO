@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import FormInicial from './components/FormInicial';
 import dado from './assets/vite.png';
-// <img src={dado} alt="dados" />
 
 function App() {
   const [menu, setMenu] = useState('inicio');
@@ -38,17 +37,17 @@ function App() {
   if (menu === 'inicio') {
     return (
       <main className='pantalla'>
-        <div className='encabezado'>
-          <h1>Puntos 10mil</h1>
-          <img src={dado} alt="dados" />
-        </div>
+        <h1>10mil</h1>
         <FormInicial cantidadJugadores={cantidadJugadores} setCantidadJugadores={setCantidadJugadores} error={error} setError={setError} menu2={menu2}/>
+        <img src={dado} alt="dados" />
       </main>
     )
   } if (menu === 'apodos') {
     return (
       <main className='pantalla'>
-        <h1>Puntos 10mil</h1>
+        <h1>10mil</h1>
+
+        <img src={dado} alt="dados" />
         <footer>
           <button className='reset' onClick={resetGame}>Reset</button>
         </footer>
