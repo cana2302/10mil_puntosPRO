@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 const FormInicial = ({ cantidadJugadores, setCantidadJugadores, error, setError, menu2 }) => {
   const inputRef = useRef(null);

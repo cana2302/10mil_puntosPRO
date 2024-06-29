@@ -53,6 +53,11 @@ body {
   cursor: pointer;
 }
 
+.pantalla button:hover {
+  background: #eee;
+  color: #222;
+}
+
 .pantalla input {
   height: 35px;
   text-align: center;
@@ -60,5 +65,5 @@ body {
 }
 
 .pantalla img {
-  width: 100px;
+  width: 130px;
 }
