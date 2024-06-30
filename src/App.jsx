@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import FormInicial from './components/FormInicial';
+import FormApodos from './components/FormApodos';
 import dado from './assets/dados_negros.png';
 
 function App() {
   const [menu, setMenu] = useState('inicio'); // (inicio || apodos || jugando || ganador)
   const [cantidadJugadores, setCantidadJugadores] = useState(''); // número de jugadores
-  const [error, setError] = useState(''); // mensaje de error
+  const [jugadores, setJugadores] = useState({});
 
   //Función que cambia el estado 'menu' -> 'apodos'
   const menu2 = () => {
@@ -28,9 +29,10 @@ function App() {
     if (confirmacion) {
       setMenu('inicio');
       setCantidadJugadores('');
-      setError('');
     }
   }
+
+  console.log(jugadores);
 
   //---------------------------------------------
 
@@ -39,7 +41,7 @@ function App() {
       <main className='pantalla'>
         <h1>10mil</h1>
         <br />
-        <FormInicial cantidadJugadores={cantidadJugadores} setCantidadJugadores={setCantidadJugadores} error={error} setError={setError} menu2={menu2}/>
+        <FormInicial cantidadJugadores={cantidadJugadores} setCantidadJugadores={setCantidadJugadores} menu2={menu2}/>
         <br />
         <img src={dado} alt="dados" />
       </main>
@@ -49,24 +51,31 @@ function App() {
       <main className='pantalla'>
         <h1>10mil</h1>
         <br />
-
+        <FormApodos cantidadJugadores={cantidadJugadores} setJugadores={setJugadores} menu3={menu3} />
         <br />
         <img src={dado} alt="dados" />
-        <footer>
-          <button className='reset' onClick={resetGame}>Reset</button>
+        <footer className='reset'>
+          <button onClick={resetGame}>Reset</button>
         </footer>
       </main>
     )
   } if (menu === 'jugando') {
     return (
       <main className='pantalla'>
-        <h1>Puntos 10mil</h1>
+        <h1>10mil</h1>
+        <br />
+        <></> 
+        <br />
+        <img src={dado} alt="dados" />
+        <footer className='reset'>
+          <button onClick={resetGame}>Reset</button>
+        </footer>
       </main>
     )
   } if (menu === 'ganador') {
     return (
       <main className='pantalla'>
-        <h1>Puntos 10mil</h1>
+        <h1>10mil</h1>
       </main>
     )
   }

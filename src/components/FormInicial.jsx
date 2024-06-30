@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 
-const FormInicial = ({ cantidadJugadores, setCantidadJugadores, error, setError, menu2 }) => {
+const FormInicial = ({ cantidadJugadores, setCantidadJugadores, menu2 }) => {
   const inputRef = useRef(null);
+  const [error, setError] = useState(''); // mensaje de error
 
   useEffect(() => {
     // Enfoca el input cuando el componente se monta
