@@ -15,7 +15,9 @@ const FormApodos = ({ cantidadJugadores, setJugadores, menu3 }) => {
       {
       apodo: apodo,
       puntos: 0,
-      missing: 10000
+      missing: 10000,
+      turno: false,
+      ganador: false
       }
       ));
 
@@ -29,7 +31,7 @@ const FormApodos = ({ cantidadJugadores, setJugadores, menu3 }) => {
     nuevosApodos[index] = value;
     setApodos(nuevosApodos);
   }
-  
+ 
   return (
     <form onSubmit={handleSubmit}>
       <div className='apodos'>

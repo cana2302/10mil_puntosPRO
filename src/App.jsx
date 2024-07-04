@@ -2,6 +2,8 @@ import { useState } from 'react';
 import FormInicial from './components/FormInicial';
 import FormApodos from './components/FormApodos';
 import dado from './assets/dados_negros.png';
+import TablaPuntos from './components/TablaPuntos';
+import FormPuntos from './components/FormPuntos';
 
 function App() {
   const [menu, setMenu] = useState('inicio'); // (inicio || apodos || jugando || ganador)
@@ -29,6 +31,7 @@ function App() {
     if (confirmacion) {
       setMenu('inicio');
       setCantidadJugadores('');
+      setJugadores({});
     }
   }
 
@@ -41,7 +44,7 @@ function App() {
       <main className='pantalla'>
         <h1>10mil</h1>
         <br />
-        <FormInicial cantidadJugadores={cantidadJugadores} setCantidadJugadores={setCantidadJugadores} menu2={menu2}/>
+        <FormInicial cantidadJugadores={cantidadJugadores} setCantidadJugadores={setCantidadJugadores} menu2={menu2} />
         <br />
         <img src={dado} alt="dados" />
       </main>
@@ -64,8 +67,9 @@ function App() {
       <main className='pantalla'>
         <h1>10mil</h1>
         <br />
-        <></> 
+        <TablaPuntos jugadores={jugadores} /> 
         <br />
+        <FormPuntos cantidadJugadores={cantidadJugadores} jugadores={jugadores} setJugadores={setJugadores} />
         <img src={dado} alt="dados" />
         <footer className='reset'>
           <button onClick={resetGame}>Reset</button>
