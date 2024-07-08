@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const FormPuntos = ({ cantidadJugadores, jugadores, setJugadores, menu4 }) => {
+const FormPuntos = ({ cantidadJugadores, jugadores, setJugadores, setWinner, menu4 }) => {
 
   const [currentJugador, setCurrentJugador] = useState(0); // Índice del jugador actual
   const [puntos, setPuntos] = useState(''); // Puntos ingresados
@@ -43,8 +43,10 @@ const FormPuntos = ({ cantidadJugadores, jugadores, setJugadores, menu4 }) => {
       pasarTurno(nuevosJugadores);
     } else if (nuevosPuntos === 10000) {
       nuevosJugadores[currentJugador].puntos = nuevosPuntos;
+      nuevosJugadores[currentJugador].ganador = true;
       nuevosJugadores[currentJugador].missing = 0;
       setJugadores(nuevosJugadores);
+      setWinner(true)
       menu4(); // Ejecutar la función menu4()
     } else {
       nuevosJugadores[currentJugador].puntos = nuevosPuntos;

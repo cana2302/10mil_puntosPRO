@@ -5,11 +5,13 @@ import dado from './assets/dados_negros.png';
 import TablaPuntos from './components/TablaPuntos';
 import FormPuntos from './components/FormPuntos';
 import TablaGanador from './components/TablaGanador';
+import Ganador from './components/Ganador';
 
 function App() {
   const [menu, setMenu] = useState('inicio'); // (inicio || apodos || jugando || ganador)
   const [cantidadJugadores, setCantidadJugadores] = useState(0); // número de jugadores
   const [jugadores, setJugadores] = useState({});
+  const [winner, setWinner] = useState(false);
 
   //Función que cambia el estado 'menu' -> 'apodos'
   const menu2 = () => {
@@ -33,6 +35,7 @@ function App() {
       setMenu('inicio');
       setCantidadJugadores('');
       setJugadores({});
+      setWinner(false);
     }
   }
 
@@ -70,7 +73,7 @@ function App() {
         <br />
         <TablaPuntos jugadores={jugadores} /> 
         <br />
-        <FormPuntos cantidadJugadores={cantidadJugadores} jugadores={jugadores} setJugadores={setJugadores} menu4={menu4} />
+        <FormPuntos cantidadJugadores={cantidadJugadores} jugadores={jugadores} setJugadores={setJugadores} setWinner={setWinner} menu4={menu4} />
         <img src={dado} alt="dados" />
         <footer className='reset'>
           <button onClick={resetGame}>Reset</button>
@@ -88,6 +91,7 @@ function App() {
         <footer className='reset'>
           <button onClick={resetGame}>Reset</button>
         </footer>
+        {winner && <Ganador jugadores={jugadores} setWinner={setWinner}/>}
     
       </main>
     )

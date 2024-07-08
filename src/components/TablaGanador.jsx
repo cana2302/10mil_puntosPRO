@@ -53,7 +53,7 @@ const TablaGanador = ({ jugadores }) => {
         </thead>
         <tbody>
           {jugadoresInfo.map((jugador, index) => (
-            <tr key={index} className={jugador.puntos === 10000 ? 'winner' : ''}>
+            <tr key={index} className={jugador.puntos === 10000 ? 'winner1' : ''}>
               <td style={thStyle}>{index + 1}°</td>
               <td style={thApodoStyle}>{jugador.apodo}</td>
               <td style={thPuntosStyle}>{jugador.puntos}</td>
