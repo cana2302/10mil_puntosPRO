@@ -1,4 +1,4 @@
-const TablaPuntos = ({ jugadores }) => {
+const TablaGanador = ({ jugadores }) => {
 
   const jugadoresInfo = [...jugadores];
 
@@ -53,7 +53,7 @@ const TablaPuntos = ({ jugadores }) => {
         </thead>
         <tbody>
           {jugadoresInfo.map((jugador, index) => (
-            <tr key={index} className={jugador.turno ? 'highlight' : ''}>
+            <tr key={index} className={jugador.puntos === 10000 ? 'winner' : ''}>
               <td style={thStyle}>{index + 1}°</td>
               <td style={thApodoStyle}>{jugador.apodo}</td>
               <td style={thPuntosStyle}>{jugador.puntos}</td>
@@ -66,4 +66,4 @@ const TablaPuntos = ({ jugadores }) => {
   )
 
 }
-export default TablaPuntos
+export default TablaGanador

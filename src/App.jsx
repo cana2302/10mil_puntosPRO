@@ -4,6 +4,7 @@ import FormApodos from './components/FormApodos';
 import dado from './assets/dados_negros.png';
 import TablaPuntos from './components/TablaPuntos';
 import FormPuntos from './components/FormPuntos';
+import TablaGanador from './components/TablaGanador';
 
 function App() {
   const [menu, setMenu] = useState('inicio'); // (inicio || apodos || jugando || ganador)
@@ -69,7 +70,7 @@ function App() {
         <br />
         <TablaPuntos jugadores={jugadores} /> 
         <br />
-        <FormPuntos cantidadJugadores={cantidadJugadores} jugadores={jugadores} setJugadores={setJugadores} />
+        <FormPuntos cantidadJugadores={cantidadJugadores} jugadores={jugadores} setJugadores={setJugadores} menu4={menu4} />
         <img src={dado} alt="dados" />
         <footer className='reset'>
           <button onClick={resetGame}>Reset</button>
@@ -80,7 +81,14 @@ function App() {
     return (
       <main className='pantalla'>
         <h1>10mil</h1>
-        <p>menu - ganador</p>
+        <br />
+        <TablaGanador jugadores={jugadores} /> 
+        <br />
+        <img src={dado} alt="dados" />
+        <footer className='reset'>
+          <button onClick={resetGame}>Reset</button>
+        </footer>
+    
       </main>
     )
   }

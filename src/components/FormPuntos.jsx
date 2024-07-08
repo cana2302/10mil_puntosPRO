@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const FormPuntos = ({ cantidadJugadores, jugadores, setJugadores }) => {
+const FormPuntos = ({ cantidadJugadores, jugadores, setJugadores, menu4 }) => {
 
   const [currentJugador, setCurrentJugador] = useState(0); // Índice del jugador actual
   const [puntos, setPuntos] = useState(''); // Puntos ingresados
@@ -35,10 +35,22 @@ const FormPuntos = ({ cantidadJugadores, jugadores, setJugadores }) => {
       return;
     }
 
-    // Actualizar los puntos del jugador actual
     const nuevosJugadores = [...jugadores];
-    nuevosJugadores[currentJugador].puntos += puntosIngresados;
-    nuevosJugadores[currentJugador].missing -= puntosIngresados;
+    const puntosActuales = nuevosJugadores[currentJugador].puntos;
+    const nuevosPuntos = puntosActuales + puntosIngresados;
+
+    if (nuevosPuntos > 10000) {
+      pasarTurno(nuevosJugadores);
+    } else if (nuevosPuntos === 10000) {
+      nuevosJugadores[currentJugador].puntos = nuevosPuntos;
+      nuevosJugadores[currentJugador].missing = 0;
+      setJugadores(nuevosJugadores);
+      menu4(); // Ejecutar la función menu4()
+    } else {
+      nuevosJugadores[currentJugador].puntos = nuevosPuntos;
+      nuevosJugadores[currentJugador].missing = 10000 - nuevosPuntos;
+      pasarTurno(nuevosJugadores);
+    }
 
     // Pasar el turno al siguiente jugador de forma cíclica
     pasarTurno(nuevosJugadores);
