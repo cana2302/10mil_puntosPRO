@@ -2,39 +2,54 @@ import React, { useState } from 'react';
 
 const FormPuntos = ({ cantidadJugadores, jugadores, setJugadores }) => {
 
-  const numeroJugadores = cantidadJugadores;
+  const [currentJugador, setCurrentJugador] = useState(0); // Índice del jugador actual
+  const [puntos, setPuntos] = useState(''); // Puntos ingresados
+  const numeroJugadores = cantidadJugadores; 
 
-  const jugadoresInfo = [...jugadores];
-
-  // Función de comparación para ordenar de mayor a menor por 'puntos'
-  jugadoresInfo.sort((a, b) => b.puntos - a.puntos);
-
-
-  // Actualizar la propiedad 'turno' del primer elemento
-  jugadoresInfo[0].turno = true;
-  // Actualiza el estado general de los jugadores con el turno
-  
-
-  
-
-  const handleInput = () => {
-    
-  }
+  const handleInput = (event) => {
+    setPuntos(event.target.value);
+  };
 
   // Función para manejar el submit del formulario
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const puntosIngresados = parseInt(puntos, 10);
+    if (isNaN(puntosIngresados)) {
+      alert('Por favor, ingrese un número válido');
+      return;
+    }
+
+    // Actualizar los puntos del jugador actual
+    const nuevosJugadores = [...jugadores];
+    nuevosJugadores[currentJugador].puntos += puntosIngresados;
+
+    // Pasar el turno al siguiente jugador de forma cíclica
+    nuevosJugadores[currentJugador].turno = false;
+    const siguienteJugador = (currentJugador + 1) % numeroJugadores;
+    nuevosJugadores[siguienteJugador].turno = true;
+
+    setJugadores(nuevosJugadores);
+    setCurrentJugador(siguienteJugador);
+    setPuntos(''); // Limpiar el input
+
+    console.log('Jugadores actualizados:', nuevosJugadores);
   };
+
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <p>Turno: {jugadores[0].apodo}</p>
-      </div>
-
-      <div>
-        <input type='text' onChange={(event) => handleInput()}/>
+        <label>
+          {`Turno de ${jugadores[currentJugador].apodo}:`}
+        </label>
+        <br />
+        <input
+          type="number"
+          value={puntos}
+          onChange={handleInput}
+          placeholder="Ingrese puntos"
+        />
       </div>
 
       <div>

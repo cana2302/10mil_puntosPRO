@@ -2,6 +2,9 @@ const TablaPuntos = ({ jugadores }) => {
 
   const jugadoresInfo = [...jugadores];
 
+  // Ordenar de mayor a menor por 'puntos'
+  jugadoresInfo.sort((a, b) => b.puntos - a.puntos);
+
   const posicion = (_x) => {
     if (_x === 0) {
       return ('1° ');

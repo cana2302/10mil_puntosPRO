@@ -20,7 +20,7 @@ const FormApodos = ({ cantidadJugadores, setJugadores, menu3 }) => {
       ganador: false
       }
       ));
-
+    setApodos(...apodos);
     setJugadores(nuevosJugadores);
     menu3();
   };

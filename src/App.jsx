@@ -7,7 +7,7 @@ import FormPuntos from './components/FormPuntos';
 
 function App() {
   const [menu, setMenu] = useState('inicio'); // (inicio || apodos || jugando || ganador)
-  const [cantidadJugadores, setCantidadJugadores] = useState(''); // número de jugadores
+  const [cantidadJugadores, setCantidadJugadores] = useState(0); // número de jugadores
   const [jugadores, setJugadores] = useState({});
 
   //Función que cambia el estado 'menu' -> 'apodos'
@@ -80,6 +80,7 @@ function App() {
     return (
       <main className='pantalla'>
         <h1>10mil</h1>
+        <p>menu - ganador</p>
       </main>
     )
   }
