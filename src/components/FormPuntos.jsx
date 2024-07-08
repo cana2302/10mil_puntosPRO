@@ -6,8 +6,23 @@ const FormPuntos = ({ cantidadJugadores, jugadores, setJugadores }) => {
   const [puntos, setPuntos] = useState(''); // Puntos ingresados
   const numeroJugadores = cantidadJugadores; 
 
+      // Función para pasar el turno al siguiente jugador de forma cíclica
+  const pasarTurno = (nuevosJugadores) => {
+    nuevosJugadores[currentJugador].turno = false;
+    const siguienteJugador = (currentJugador + 1) % numeroJugadores;
+    nuevosJugadores[siguienteJugador].turno = true;
+
+    setJugadores(nuevosJugadores);
+    setCurrentJugador(siguienteJugador);
+  };
+
   const handleInput = (event) => {
     setPuntos(event.target.value);
+  };
+
+  const handlePasarTurno = () => {
+    const nuevosJugadores = [...jugadores];
+    pasarTurno(nuevosJugadores);
   };
 
   // Función para manejar el submit del formulario
@@ -23,14 +38,10 @@ const FormPuntos = ({ cantidadJugadores, jugadores, setJugadores }) => {
     // Actualizar los puntos del jugador actual
     const nuevosJugadores = [...jugadores];
     nuevosJugadores[currentJugador].puntos += puntosIngresados;
+    nuevosJugadores[currentJugador].missing -= puntosIngresados;
 
     // Pasar el turno al siguiente jugador de forma cíclica
-    nuevosJugadores[currentJugador].turno = false;
-    const siguienteJugador = (currentJugador + 1) % numeroJugadores;
-    nuevosJugadores[siguienteJugador].turno = true;
-
-    setJugadores(nuevosJugadores);
-    setCurrentJugador(siguienteJugador);
+    pasarTurno(nuevosJugadores);
     setPuntos(''); // Limpiar el input
 
     console.log('Jugadores actualizados:', nuevosJugadores);
@@ -41,7 +52,7 @@ const FormPuntos = ({ cantidadJugadores, jugadores, setJugadores }) => {
     <form onSubmit={handleSubmit}>
       <div>
         <label>
-          {`Turno de ${jugadores[currentJugador].apodo}:`}
+          Turno de <strong>{jugadores[currentJugador].apodo}</strong>:
         </label>
         <br />
         <input
@@ -54,6 +65,9 @@ const FormPuntos = ({ cantidadJugadores, jugadores, setJugadores }) => {
 
       <div>
         <button type="submit">Enter</button>
+      </div>
+      <div>
+        <button type="button" onClick={handlePasarTurno}>Pasar Turno</button>
       </div>
     </form>
   )
