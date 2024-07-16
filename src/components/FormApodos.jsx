@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { stringify } from 'uuid';
 
 const FormApodos = ({ cantidadJugadores, setJugadores, menu3 }) => {
 
-  const [apodos, setApodos] = useState(Array(cantidadJugadores).fill(''));
-
-  console.log(apodos);
+  // Estado APODOS (input)
+  const [apodos, setApodos] = useState(() => {
+    const apodosFromStorage = window.localStorage.getItem('apodos')
+    return apodosFromStorage ? JSON.parse(apodosFromStorage) : Array(cantidadJugadores).fill('')
+  });
 
   // Función para manejar el submit del formulario
   const handleSubmit = (event) => {
@@ -20,7 +23,9 @@ const FormApodos = ({ cantidadJugadores, setJugadores, menu3 }) => {
       ganador: false
       }
       ));
+    window.localStorage.setItem('apodos', JSON.stringify(...apodos));  
     setApodos(...apodos);
+    window.localStorage.setItem('jugadores', JSON.stringify(nuevosJugadores));
     setJugadores(nuevosJugadores);
     menu3();
   };
@@ -29,6 +34,7 @@ const FormApodos = ({ cantidadJugadores, setJugadores, menu3 }) => {
     const value = event.target.value;
     const nuevosApodos = [...apodos];
     nuevosApodos[index] = value;
+    window.localStorage.setItem('apodos', JSON.stringify(nuevosApodos));
     setApodos(nuevosApodos);
   }
  

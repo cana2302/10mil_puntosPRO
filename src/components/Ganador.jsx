@@ -8,6 +8,7 @@ const Ganador = ({ jugadores, setWinner }) => {
   };
 
   const cerrar = () => {
+    window.localStorage.setItem('winner', JSON.stringify(false));
     setWinner(false);
   }
 

@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 
-const FormPuntos = ({ cantidadJugadores, jugadores, setJugadores, setWinner, menu4 }) => {
+const FormPuntos = ({ cantidadJugadores, jugadores, setJugadores, setWinner, menu4, currentJugador, setCurrentJugador }) => {
 
-  const [currentJugador, setCurrentJugador] = useState(0); // Índice del jugador actual
   const [puntos, setPuntos] = useState(''); // Puntos ingresados
   const numeroJugadores = cantidadJugadores; 
 
-      // Función para pasar el turno al siguiente jugador de forma cíclica
+  // Función para pasar el turno al siguiente jugador de forma cíclica
   const pasarTurno = (nuevosJugadores) => {
     nuevosJugadores[currentJugador].turno = false;
     const siguienteJugador = (currentJugador + 1) % numeroJugadores;
     nuevosJugadores[siguienteJugador].turno = true;
-
+    window.localStorage.setItem('jugadores', JSON.stringify(nuevosJugadores));
     setJugadores(nuevosJugadores);
+    window.localStorage.setItem('currentJugador', siguienteJugador);
     setCurrentJugador(siguienteJugador);
   };
 
@@ -45,7 +45,9 @@ const FormPuntos = ({ cantidadJugadores, jugadores, setJugadores, setWinner, men
       nuevosJugadores[currentJugador].puntos = nuevosPuntos;
       nuevosJugadores[currentJugador].ganador = true;
       nuevosJugadores[currentJugador].missing = 0;
+      window.localStorage.setItem('jugadores', JSON.stringify(nuevosJugadores));
       setJugadores(nuevosJugadores);
+      window.localStorage.setItem('winner', JSON.stringify(true));
       setWinner(true)
       menu4(); // Ejecutar la función menu4()
     } else {

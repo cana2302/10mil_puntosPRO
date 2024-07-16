@@ -15,6 +15,7 @@ const FormInicial = ({ cantidadJugadores, setCantidadJugadores, menu2 }) => {
     if (/^\d*$/.test(value)) {
       const number = parseInt(value, 10);
       if (value === '' || (number >= 1 && number <= 12)){
+        window.localStorage.setItem('cantidadJugadores', value)
         setCantidadJugadores(value);
         setError('');
       } else {
@@ -34,9 +35,10 @@ const FormInicial = ({ cantidadJugadores, setCantidadJugadores, menu2 }) => {
       const number_ = parseInt(cantidadJugadores, 10);
       if (number_ >= 1 && number_ <= 12) {
         setError('');
-        menu2();
         console.log('Valor ingresado:', number_);
+        window.localStorage.setItem('cantidadJugadores', number_)
         setCantidadJugadores(number_);
+        menu2();
       } else {
         setError('El valor debe ser un número entre 1 y 12.');
       }

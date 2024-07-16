@@ -8,23 +8,57 @@ import TablaGanador from './components/TablaGanador';
 import Ganador from './components/Ganador';
 
 function App() {
-  const [menu, setMenu] = useState('inicio'); // (inicio || apodos || jugando || ganador)
-  const [cantidadJugadores, setCantidadJugadores] = useState(0); // número de jugadores
-  const [jugadores, setJugadores] = useState({});
-  const [winner, setWinner] = useState(false);
+
+  // Estado MENU (inicio || apodos || jugando || ganador)
+  const [menu, setMenu] = useState(() => {
+    const menuFromStorage = window.localStorage.getItem('menu')
+    return menuFromStorage ? menuFromStorage : 'inicio';
+  });
+  
+  // Estado CANTIDADJUGADORES (número de jugadores)
+  const [cantidadJugadores, setCantidadJugadores] = useState(() => {
+    const cantidadJugadoresFromStorage = window.localStorage.getItem('cantidadJugadores')
+    return cantidadJugadoresFromStorage ? JSON.parse(cantidadJugadoresFromStorage) : 0;
+  });
+
+  // Estado JUGADORES ([{apodo, puntos, missin, turno, winner}])
+  const [jugadores, setJugadores] = useState(() => {
+    try {
+      const jugadoresFromStorage = window.localStorage.getItem('jugadores');
+      return jugadoresFromStorage ? JSON.parse(jugadoresFromStorage) : [];
+    } catch (e) {
+      console.error("Error parsing jugadores from storage", e);
+      return [];
+    }
+  });
+
+  // Estado WINNER (true or false)
+  const [winner, setWinner] = useState(() => {
+    const winnerFromStorage = window.localStorage.getItem('winner')
+    return winnerFromStorage ? JSON.parse(winnerFromStorage) : false;
+  });
+
+  // Estado JUGADOR ACTUAL (Índice del jugador actual)
+  const [currentJugador, setCurrentJugador] = useState(() => {
+   const currentJugadorFromLocalStorage = window.localStorage.getItem('currentJugador')
+   return currentJugadorFromLocalStorage ? JSON.parse(currentJugadorFromLocalStorage) : 0
+  })
 
   //Función que cambia el estado 'menu' -> 'apodos'
   const menu2 = () => {
+    window.localStorage.setItem('menu', 'apodos');
     setMenu('apodos')
   }
 
   //Función que cambia el estado 'menu' -> 'jugando'
   const menu3 = () => {
+    window.localStorage.setItem('menu', 'jugando');
     setMenu('jugando')
   }
 
   //Función que cambia el estado 'menu' -> 'ganador'
   const menu4 = () => {
+    window.localStorage.setItem('menu', 'ganador');
     setMenu('ganador')
   }
 
@@ -32,14 +66,22 @@ function App() {
   const resetGame = () => {
     const confirmacion = window.confirm('¿Estás seguro de resetear?');
     if (confirmacion) {
+      window.localStorage.removeItem('menu');
+      window.localStorage.removeItem('cantidadJugadores');
+      window.localStorage.removeItem('jugadores');
+      window.localStorage.removeItem('winner');
+      window.localStorage.removeItem('apodos');
+      window.localStorage.removeItem('currentJugador');
       setMenu('inicio');
-      setCantidadJugadores('');
-      setJugadores({});
+      setCantidadJugadores(0);
+      setJugadores([]);
       setWinner(false);
+      setCurrentJugador(0);
     }
   }
 
   console.log(jugadores);
+  
 
   //---------------------------------------------
 
@@ -73,7 +115,7 @@ function App() {
         <br />
         <TablaPuntos jugadores={jugadores} /> 
         <br />
-        <FormPuntos cantidadJugadores={cantidadJugadores} jugadores={jugadores} setJugadores={setJugadores} setWinner={setWinner} menu4={menu4} />
+        <FormPuntos cantidadJugadores={cantidadJugadores} jugadores={jugadores} setJugadores={setJugadores} setWinner={setWinner} menu4={menu4} currentJugador={currentJugador} setCurrentJugador={setCurrentJugador} />
         <img src={dado} alt="dados" />
         <footer className='reset'>
           <button onClick={resetGame}>Reset</button>
