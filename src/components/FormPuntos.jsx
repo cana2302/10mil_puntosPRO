@@ -65,8 +65,8 @@ const FormPuntos = ({ cantidadJugadores, jugadores, setJugadores, setWinner, men
 
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form onSubmit={handleSubmit} className='formPuntos'>
+      <div className='divformPuntos'>
         <label>
           Turno de <strong>{jugadores[currentJugador].apodo}</strong>:
         </label>
