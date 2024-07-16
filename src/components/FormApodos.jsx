@@ -19,7 +19,7 @@ const FormApodos = ({ cantidadJugadores, setJugadores, menu3 }) => {
       apodo: apodo,
       puntos: 0,
       missing: 10000,
-      turno: false,
+      turno: index === 0 ? true : false,
       ganador: false
       }
       ));
